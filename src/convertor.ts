@@ -568,6 +568,7 @@ export class PrismaConvertor {
 				decorators.push(new DecoratorComponent({
 					name: 'IsString',
 					importFrom: 'class-validator',
+					params: dmmfField.isList ? ['{each: true}'] : [],
 				}))
 			}
 
