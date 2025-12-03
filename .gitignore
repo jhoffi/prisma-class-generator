@@ -7,3 +7,5 @@ src/_gen/prisma-class/*.ts
 
 .idea
 .vscode
+
+src/generated

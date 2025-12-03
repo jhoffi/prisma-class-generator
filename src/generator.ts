@@ -63,7 +63,7 @@ export const PrismaClassGeneratorOptions = {
 	},
 	prismaJsonValueImportPath: {
 		desc: 'import path for JsonValue type',
-		defaultValue: '@prisma/client/runtime/library',
+		defaultValue: '@prisma/client/runtime/client'
 	}
 } as const
 
@@ -119,7 +119,9 @@ export class PrismaClassGenerator {
 	getClientImportPath(): string {
 		const result = this.options.generator.config.clientImportPath
 		if (!result) {
-			return '@prisma/client'
+			const parts = this.options.schemaPath.split('/')
+			parts.pop();
+			return path.relative(this.options.generator.output.value, this.clientPath)
 		}
 		if (Array.isArray(result)) {
 			return result[0]
@@ -132,7 +134,7 @@ export class PrismaClassGenerator {
 		const { otherGenerators, schemaPath } = this.options
 
 		const clientGenerator = otherGenerators.find(
-			(g) => g.provider.value === 'prisma-client-js',
+			(g) => ['prisma-client-js', 'prisma-client'].includes(g.provider.value),
 		)
 
 		this.rootPath = schemaPath.replace('/prisma/schema.prisma', '')

@@ -7,7 +7,7 @@ generatorHandler({
 	onManifest: () => ({
 		defaultOutput: '../src/_gen/prisma-class',
 		prettyName: GENERATOR_NAME,
-		requiresGenerators: ['prisma-client-js'],
+		requiresGenerators: ['prisma-client'],
 	}),
 	onGenerate: async (options: GeneratorOptions) => {
 		try {

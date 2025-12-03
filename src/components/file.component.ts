@@ -88,7 +88,7 @@ export class FileComponent implements Echoable {
 			)
 		})
 		this.prismaClass.enumTypes.forEach((enumName) => {
-			this.registerImport(enumName, generator.getClientImportPath())
+			this.registerImport(enumName, path.join(generator.getClientImportPath(), 'enums') )
 		})
 
 		this.prismaClass.decorators.forEach((decorator) => {
