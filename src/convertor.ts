@@ -44,6 +44,7 @@ export interface SwaggerDecoratorParams {
 	type?: string
 	enum?: string
 	enumName?: string
+	nullable?: boolean;
 }
 
 export interface ConvertModelInput {
@@ -160,6 +161,10 @@ export class PrismaConvertor {
 
 		if (dmmfField.isList) {
 			options.isArray = true
+		}
+
+		if(!dmmfField.isRequired){
+			options.nullable = true
 		}
 
 		let type = this.getPrimitiveMapTypeFromDMMF(dmmfField)
@@ -584,6 +589,12 @@ export class PrismaConvertor {
 					name: 'IsInt',
 					importFrom: 'class-validator',
 				}))
+
+				decorators.push(new DecoratorComponent({
+					name: 'Type',
+					importFrom: 'class-transformer',
+					params: ['() => Number'],
+				}))
 			}
 
 			if(type === 'Boolean'){
@@ -598,12 +609,31 @@ export class PrismaConvertor {
 					name: 'IsInt',
 					importFrom: 'class-validator',
 				}))
+
+				decorators.push(new DecoratorComponent({
+					name: 'Type',
+					importFrom: 'class-transformer',
+					params: ['() => Number'],
+				}))
 			}
 
 			if(type === 'DateTime'){
 				decorators.push(new DecoratorComponent({
 					name: 'IsDateString',
 					importFrom: 'class-validator',
+				}))
+			}
+
+			if(type === 'Float'){
+				decorators.push(new DecoratorComponent({
+					name: 'IsNumber',
+					importFrom: 'class-validator',
+				}))
+
+				decorators.push(new DecoratorComponent({
+					name: 'Type',
+					importFrom: 'class-transformer',
+					params: ['() => Number'],
 				}))
 			}
 		}
@@ -670,7 +700,11 @@ export class PrismaConvertor {
 		}
 
 		if (type) {
-			field.type = type
+			if(this.config.usePrismaJsonValue && type === 'object'){
+				field.type = 'JsonValue'
+			}else{
+				field.type = type
+			}
 		} else {
 			field.type = dmmfField.type
 		}

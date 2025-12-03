@@ -56,6 +56,14 @@ export const PrismaClassGeneratorOptions = {
 	useClassValidator: {
 		desc: 'use class validator',
 		defaultValue: false
+	},
+	usePrismaJsonValue: {
+		desc: 'use Prisma JsonValue type instead of object for Json fields',
+		defaultValue: false,
+	},
+	prismaJsonValueImportPath: {
+		desc: 'import path for JsonValue type',
+		defaultValue: '@prisma/client/runtime/library',
 	}
 } as const
 
