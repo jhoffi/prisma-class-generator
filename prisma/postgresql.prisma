@@ -43,6 +43,8 @@ model Product {
   updatedAt     DateTime           @updatedAt @db.Timestamp(6)
 }
 
+model Company {
+  id    Int      @id @default(autoincrement())
   names String[]
   name  String
 
