@@ -24,16 +24,23 @@ enum TestEnum {
 }
 
 model Product {
-  id            Int      @id
-  letterName    TestEnum
-  title         String   @db.VarChar(255)
-  desc          String   @default("abc") @db.VarChar(1024)
-  images        Json     @db.Json
-  isShown       Boolean? @default(false)
-  stock         Int?     @default(0)
+  id            Int                @id
+  title         String             @db.VarChar(255)
+  desc          String             @default("abc") @db.VarChar(1024)
+  images        Json               @db.Json
+  isShown       Boolean?           @default(false)
+  stock         Int                @default(0)
+  type          ProductType
+  anotherType   ProductAnotherType @default(AA)
   averageRating Float?
-  createdAt     DateTime @default(now()) @db.Timestamp(6)
-  updatedAt     DateTime @updatedAt @db.Timestamp(6)
+  categoryId    Int
+  companyId     Int
+  category      Category           @relation(fields: [categoryId], references: [id])
+  company       Company            @relation(fields: [companyId], references: [id])
+  releasedAt    DateTime           @default("2024-01-01T00:00:00Z") @db.Timestamp(6)
+  createdAt     DateTime           @default(now()) @db.Timestamp(6)
+  updatedAt     DateTime           @updatedAt @db.Timestamp(6)
+}
 
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int

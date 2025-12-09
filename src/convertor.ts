@@ -3,13 +3,7 @@ import { ClassComponent } from './components/class.component'
 import { DecoratorComponent } from './components/decorator.component'
 import { FieldComponent } from './components/field.component'
 import { PrismaClassGeneratorConfig } from './generator'
-import {
-	arrayify,
-	capitalizeFirst,
-	uniquify,
-	wrapArrowFunction,
-	wrapQuote,
-} from './util'
+import { arrayify, capitalizeFirst, uniquify, wrapArrowFunction, wrapQuote, } from './util'
 
 /** BigInt, Boolean, Bytes, DateTime, Decimal, Float, Int, JSON, String, $ModelName */
 type DefaultPrismaFieldType =
@@ -212,7 +206,11 @@ export class PrismaConvertor {
 		const relationTypes = uniquify(
 			model.fields
 				.filter(
-					(field) => field.relationName && (this._config.separateRelationFields ? true : model.name !== field.type),
+					(field) =>
+						field.relationName &&
+						(this._config.separateRelationFields
+							? true
+							: model.name !== field.type),
 				)
 				.map((v) => v.type),
 		)
@@ -647,13 +645,15 @@ export class PrismaConvertor {
 			field.preserveDefaultNullable = true
 		}
 
-		if (dmmfField.default) {
+		if (dmmfField.default !== undefined && dmmfField.default !== null) {
 			if (typeof dmmfField.default !== 'object') {
-				field.default = dmmfField.default?.toString()
+				field.default = dmmfField.default.toString()
 				if (dmmfField.kind === 'enum') {
 					field.default = `${dmmfField.type}.${dmmfField.default}`
 				} else if (dmmfField.type === 'BigInt') {
 					field.default = `BigInt(${field.default})`
+				} else if (dmmfField.type === 'Int') {
+					field.default = `${field.default}`
 				} else if (dmmfField.type === 'String') {
 					field.default = `'${field.default}'`
 				}
@@ -665,7 +665,18 @@ export class PrismaConvertor {
 				} else {
 					field.default = `[${dmmfField.default.toString()}]`
 				}
+			} else if (dmmfField.type === 'DateTime') {
+				const defaultDateStr = JSON.stringify(dmmfField.default);
+				if (defaultDateStr.includes('now')) {
+					field.default = 'new Date()';
+				} else {
+					field.default = `new Date('${defaultDateStr}')`
+				}
 			}
+		}
+
+		if (dmmfField.isUpdatedAt) {
+			field.default = 'new Date()'
 		}
 
 		if (type) {
