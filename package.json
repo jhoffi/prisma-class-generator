@@ -1,62 +1,62 @@
 {
-  "name": "@jannis6023/prisma-class-generator",
-  "version": "7.0.3",
-  "description": "One2One-Relation-fixed Class generator from Prisma schema",
-  "main": "dist/index.js",
-  "license": "MIT",
-  "keywords": [
-    "prisma",
-    "nestjs",
-    "typescript",
-    "generator"
-  ],
-  "homepage": "https://github.com/jannis6023/prisma-class-generator",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/jannis6023/prisma-class-generator.git"
-  },
-  "scripts": {
-    "format": "prettier --write \"src/**/*.ts\"",
-    "dev": "node -r ts-node/register src/index.ts",
-    "generate:postgresql": "prisma generate --schema prisma/postgresql.prisma",
-    "generate:mysql": "prisma generate --schema prisma/mysql.prisma",
-    "generate:mongodb": "prisma generate --schema prisma/mongodb.prisma"
-  },
-  "bin": {
-    "prisma-class-generator": "dist/bin.js"
-  },
-  "engines": {
-    "node": ">=14"
-  },
-  "author": {
-    "name": "jannis6023",
-    "email": "mail@jannis6023.de"
-  },
-  "dependencies": {
-    "@prisma/client": "^7.1.0",
-    "@prisma/generator-helper": "^7.1.0",
-    "@prisma/internals": "^7.1.0",
-    "change-case": "^4.1.2",
-    "prettier": "^2.5.1"
-  },
-  "peerDependencies": {
-    "prisma": "^7.1.0"
-  },
-  "devDependencies": {
-    "@nestjs/swagger": "^7.3.1",
-    "@types/jest": "^28.1.4",
-    "@types/node": "^24.10.1",
-    "@types/prettier": "^2.6.3",
-    "class-transformer": "^0.5.1",
-    "class-validator": "^0.14.1",
-    "swagger-ui-express": "^4.4.0",
-    "prisma": "^7.1.0",
-    "ts-node": "^10.9.1",
-    "ts-toolbelt": "^9.6.0",
-    "typescript": "^5.9.3",
-    "prettier": "2.5.1"
-  },
-  "_moduleAliases": {
-    "@src": "dist"
-  }
+	"name": "@jannis6023/prisma-class-generator",
+	"version": "7.0.3",
+	"description": "One2One-Relation-fixed Class generator from Prisma schema",
+	"main": "dist/index.js",
+	"license": "MIT",
+	"keywords": [
+		"prisma",
+		"nestjs",
+		"typescript",
+		"generator"
+	],
+	"homepage": "https://github.com/jannis6023/prisma-class-generator",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/jannis6023/prisma-class-generator.git"
+	},
+	"scripts": {
+		"format": "prettier --write \"src/**/*.ts\"",
+		"dev": "node -r ts-node/register src/index.ts",
+		"generate:postgresql": "prisma generate --schema prisma/postgresql.prisma",
+		"generate:mysql": "prisma generate --schema prisma/mysql.prisma",
+		"generate:mongodb": "prisma generate --schema prisma/mongodb.prisma"
+	},
+	"bin": {
+		"prisma-class-generator": "dist/bin.js"
+	},
+	"engines": {
+		"node": ">=14"
+	},
+	"author": {
+		"name": "jannis6023",
+		"email": "mail@jannis6023.de"
+	},
+	"dependencies": {
+		"@prisma/client": "^7.8.0",
+		"@prisma/generator-helper": "^7.8.0",
+		"@prisma/internals": "^7.8.0",
+		"change-case": "^4.1.2",
+		"prettier": "^2.5.1"
+	},
+	"peerDependencies": {
+		"prisma": "^7.8.0"
+	},
+	"devDependencies": {
+		"@nestjs/swagger": "^11.4.2",
+		"@types/jest": "^28.1.4",
+		"@types/node": "^24.10.1",
+		"@types/prettier": "^2.6.3",
+		"class-transformer": "^0.5.1",
+		"class-validator": "^0.14.1",
+		"swagger-ui-express": "^4.4.0",
+		"prisma": "^7.1.0",
+		"ts-node": "^10.9.1",
+		"ts-toolbelt": "^9.6.0",
+		"typescript": "^5.9.3",
+		"prettier": "2.5.1"
+	},
+	"_moduleAliases": {
+		"@src": "dist"
+	}
 }
