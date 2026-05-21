@@ -57,6 +57,14 @@ export const PrismaClassGeneratorOptions = {
 		desc: 'use class validator',
 		defaultValue: false
 	},
+	useClassValidatorStringIsNotEmpty: {
+		desc: 'use @IsNotEmpty for string fields',
+		defaultValue: false
+	},
+	useClassValidatorArrayIsNotEmpty: {
+		desc: 'use @ArrayNotEmpty for array fields',
+		defaultValue: false
+	},
 	useClassTransformerExpose: {
 		desc: 'annotate all properties with @Expose',
 		defaultValue: false

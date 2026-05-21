@@ -2,7 +2,7 @@ import { DMMF } from '@prisma/generator-helper'
 import { ClassComponent } from './components/class.component'
 import { DecoratorComponent } from './components/decorator.component'
 import { FieldComponent } from './components/field.component'
-import { PrismaClassGeneratorConfig } from './generator'
+import { PrismaClassGeneratorConfig, PrismaClassGeneratorOptions } from './generator'
 import {
 	arrayify,
 	capitalizeFirst,
@@ -347,6 +347,24 @@ export class PrismaConvertor {
 				name: 'IsDefined',
 				importFrom: 'class-validator',
 			}));
+
+			if (this.config.useClassValidatorStringIsNotEmpty && type === 'String') {
+				decorators.push(
+					new DecoratorComponent({
+						name: 'IsNotEmpty',
+						importFrom: 'class-validator',
+					}),
+				)
+			}
+
+			if (this.config.useClassValidatorArrayIsNotEmpty && dmmfField.isList) {
+				decorators.push(
+					new DecoratorComponent({
+						name: 'ArrayNotEmpty',
+						importFrom: 'class-validator',
+					})
+				)
+			}
 		}else{
 			decorators.push(new DecoratorComponent({
 				name: 'IsOptional',
